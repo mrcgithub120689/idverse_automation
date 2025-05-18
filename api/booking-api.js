@@ -1,42 +1,67 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://restful-booker.herokuapp.com';
+class BookingApi {
+  constructor(baseUrl = 'https://restful-booker.herokuapp.com') {
+    this.baseUrl = baseUrl;
+  }
 
-const bookingApi = {
+  async getAuthToken(username = 'admin', password = 'password123') {
+    const response = await axios.post(`${this.baseUrl}/auth`, {
+      username,
+      password
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data.token;
+  }
+
   async createBooking(data) {
-    const response = await axios.post(`${BASE_URL}/booking`, data, {
+    const response = await axios.post(`${this.baseUrl}/booking`, data, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-      },
-    });
-    return response;
-  },
-
-  async getBooking(id) {
-    const response = await axios.get(`${BASE_URL}/booking/${id}`);
-    return response;
-  },
-
-  async updateBooking(id, data, token) {
-    const response = await axios.put(`${BASE_URL}/booking/${id}`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Cookie': `token=${token}`
-      },
-    });
-    return response;
-  },
-
-  async deleteBooking(id, token) {
-    const response = await axios.delete(`${BASE_URL}/booking/${id}`, {
-      headers: {
-        'Cookie': `token=${token}`
       },
     });
     return response;
   }
-};
 
-export default bookingApi;
+  async getBooking(id) {
+    const response = await axios.get(`${this.baseUrl}/booking/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+    return response;
+  }
+
+  async updateBooking(id, data, token) {
+    if (!token) {
+      throw new Error('Token is required for updateBooking');
+    }
+    const response = await axios.put(`${this.baseUrl}/booking/${id}`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Cookie': `token=${token}`,
+      },
+    });
+    return response;
+  }
+
+  async deleteBooking(id, token) {
+    if (!token) {
+      throw new Error('Token is required for deleteBooking');
+    }
+    const response = await axios.delete(`${this.baseUrl}/booking/${id}`, {
+      headers: {
+        'Cookie': `token=${token}`,
+      },
+    });
+    return response;
+  }
+}
+
+export default new BookingApi();

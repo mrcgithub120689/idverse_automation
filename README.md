@@ -4,6 +4,7 @@
 - Node.js
 - Mocha
 - Chai
+- Axios
 - allure-report
 - selenium-standalone-service
 
@@ -23,6 +24,7 @@ npm run report
 ## For Enhancement
 - implementation of data with respect to environment
 - data driven approach where you can test multiple data for 1 test
+- integration with cicd
+- env files for sensitive information
 - date picker for more future dates
 - enhance search flights with more options
-- integration with cicd
