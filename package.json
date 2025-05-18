@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:web:chrome": "wdio run wdio.conf.js --spec ./test/*web.spec.js",
+    "test:web:chrome": "cross-env BROWSER=chrome npx wdio run wdio.conf.js --spec ./test/*.web.spec.js",
     "test:api": "mocha test/*.api.spec.js",
+    "test:all": "npm run test:api && npm run test:web:chrome",
     "report": "allure generate allure-results --clean && allure open"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "@wdio/spec-reporter": "^9.14.0",
     "axios": "^1.9.0",
     "chai": "^5.2.0",
+    "cross-env": "^7.0.3",
     "mocha": "^11.3.0",
     "mochawesome": "^7.1.3",
     "wdio-wait-for": "^3.1.0",

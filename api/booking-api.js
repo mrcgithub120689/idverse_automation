@@ -62,6 +62,11 @@ class BookingApi {
     });
     return response;
   }
+
+  async deleteBookingWithoutToken(id) {
+    const response = await axios.delete(`${this.baseUrl}/booking/${id}`);
+    return response;
+  }
 }
 
 export default new BookingApi();
