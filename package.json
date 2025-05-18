@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:web:chrome": "cross-env BROWSER=chrome wdio run wdio.conf.js --spec ./test/*.web.spec.js",
+    "test:web:chrome": "wdio run wdio.conf.js --spec ./test/*web.spec.js",
+    "test:api": "mocha test/*.api.spec.js",
     "report": "allure generate allure-results --clean && allure open"
   },
   "keywords": [],

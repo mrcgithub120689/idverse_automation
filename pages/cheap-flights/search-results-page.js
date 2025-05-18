@@ -22,10 +22,7 @@ class SearchResultsPage extends BasePage {
             await browser.pause(interval);
             flightResults = await this.searchResults;
         }
-        
-        if (i == 20) {
-          throw new Error(`Flight results did not load after ${maxAttempts} attempts.`);
-        }
+    throw new Error(`Flight results did not load after ${maxAttempts} attempts.`);
     }
 }
 
