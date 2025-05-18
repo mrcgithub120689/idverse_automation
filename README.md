@@ -28,3 +28,4 @@ npm run report
 - env files for sensitive information
 - date picker for more future dates
 - enhance search flights with more options
+- implement allure reporter for api as well

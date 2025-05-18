@@ -42,12 +42,11 @@ export const config = {
     // specFileRetriesDelay: 0,
     // specFileRetriesDeferred: false,
     reporters: [
-        'spec',
-        ['allure', {
-            outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: false,
-        }],
+    ['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+    }],
     ],
     mochaOpts: {
         ui: 'bdd',
