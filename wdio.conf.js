@@ -9,7 +9,7 @@ export const config = {
     // Specify Test Files
     // ==================
     specs: [
-        // ToDo: define location for spec files here
+    './test/*.spec.js'
     ],
     exclude: [
         // 'path/to/excluded/files'
@@ -42,11 +42,12 @@ export const config = {
     // specFileRetriesDelay: 0,
     // specFileRetriesDeferred: false,
     reporters: [
-    ['allure', {
-        outputDir: 'allure-results',
-        disableWebdriverStepsReporting: true,
-        disableWebdriverScreenshotsReporting: true,
-    }],
+        'spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
+        }],
     ],
     mochaOpts: {
         ui: 'bdd',

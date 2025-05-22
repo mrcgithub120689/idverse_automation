@@ -7,22 +7,17 @@ class SearchResultsPage extends BasePage {
         return $$(`//*[contains(@class,'result-item-container')]`);
     }
 
-    async validateUrl() {
-        const currentUrl = await browser.getUrl();
-        expect(currentUrl).to.include('flight-search');
-    }
+    async getSearchResults(timeout = 20000, interval = 1000) {
+        await browser.waitUntil(async () => {
+            const results = await this.searchResults;
+            return results.length > 0;
+        }, {
+            timeout,
+            interval,
+            timeoutMsg: 'Flight results did not load within the specified timeout.'
+        });
 
-    async getSearchResults(maxAttempts = 20, interval = 1000) {
-         let flightResults = await this.searchResults;
-
-        for (let i = 0; i < maxAttempts; i++) {
-            if (flightResults.length > 0) {
-                return flightResults;
-            }
-            await browser.pause(interval);
-            flightResults = await this.searchResults;
-        }
-    throw new Error(`Flight results did not load after ${maxAttempts} attempts.`);
+        return this.searchResults;
     }
 }
 

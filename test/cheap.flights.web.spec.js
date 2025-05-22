@@ -10,6 +10,10 @@ describe('CheapFlights Tests', () => {
     await cheapFlightsHomePage.logo.waitForExist({ timeout: 10000 });
   });
 
+  afterEach(async () => {
+    await browser.reloadSession(); // or browser.closeWindow() if multi-window
+  });
+
   it('should display logo and signin button', async () => {
     expect(await cheapFlightsHomePage.logo.isDisplayed()).to.be.true;
     expect(await cheapFlightsHomePage.btnSignIn.isDisplayed()).to.be.true;
@@ -29,16 +33,17 @@ describe('CheapFlights Tests', () => {
     await cheapFlightsHomePage.setDepartureDate(flightSearchData.departureDate);
     await cheapFlightsHomePage.setReturnDate(flightSearchData.returnDate);
     await cheapFlightsHomePage.btnSearch.click();
-    await searchResultsPage.waitForPageLoad();
-    await searchResultsPage.validateUrl();
+    await cheapFlightsHomePage.switchToNewWindow();
+    await searchResultsPage.validateUrlContains('flight-search');
     let flightResults = await searchResultsPage.getSearchResults();
     expect(flightResults.length).to.be.greaterThan(0);
   });
 
   it('should search for flights - negative', async () => {
     await cheapFlightsHomePage.clearDestination();
+    await cheapFlightsHomePage.inputDestinationFrom.waitForDisplayed(10000);
     await cheapFlightsHomePage.selectDestinationFrom(flightSearchData.from);
     await cheapFlightsHomePage.btnSearch.click();
-    expect(await cheapFlightsHomePage.msgNoAirport.isDisplayed()).to.be.true;
+    expect(await cheapFlightsHomePage.btnDismiss.isDisplayed()).to.be.true;
   });
 });

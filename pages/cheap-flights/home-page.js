@@ -42,6 +42,10 @@ class HomePage extends BasePage {
     return $(`//*[@class='TaO3-title' and .="You didn't select an airport"]`);
   }
 
+  get btnDismiss() {
+    return $(`//*[@class='RxNS-button-content' and .='Dismiss']/ancestor::button`);
+  }
+
   
   async open() {
     await browser.url('https://www.cheapflights.com.au/');

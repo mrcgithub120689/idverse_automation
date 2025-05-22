@@ -5,8 +5,6 @@
 - Mocha
 - Chai
 - Axios
-- allure-report
-- selenium-standalone-service
 
 ## Commands
 
